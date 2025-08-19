@@ -1,10 +1,7 @@
 package br.com.fiap.spring.mvc.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,17 +12,17 @@ public class Livro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "O título é obrigatório")
-    private String título;
+    private String titulo;
     @NotBlank(message = "O autor é obrigatório")
     private String autor;
     @Enumerated(EnumType.STRING)
     @NotNull(message = "A categoria é obrigatória")
-    private Categoria categooria;
+    private Categoria categoria;
     private String editora;
     @DecimalMin(value = "0.99", message = "O preço deve ser no mínimo 0.99")
     private BigDecimal preco;
     @Pattern(regexp = "^970\\d{7}$|^970\\d{10}$",
-            message = "isbn fora do padrão")
+            message = "ISBN fora do padrão")
     private String isbn;
     private LocalDate dataPublicacao;
 
@@ -37,12 +34,12 @@ public class Livro {
         this.id = id;
     }
 
-    public String getTítulo() {
-        return título;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setTítulo(String título) {
-        this.título = título;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public String getAutor() {
@@ -53,12 +50,12 @@ public class Livro {
         this.autor = autor;
     }
 
-    public Categoria getCategooria() {
-        return categooria;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setCategooria(Categoria categooria) {
-        this.categooria = categooria;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     public String getEditora() {
