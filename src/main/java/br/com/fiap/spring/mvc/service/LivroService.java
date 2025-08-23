@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 public class LivroService {
     private final LivroRepository livroRepository;
@@ -17,7 +16,6 @@ public class LivroService {
         this.livroRepository = livroRepository;
     }
 
-    // CRUD -> Create, Read, Update, Delete
     public Livro createLivro(Livro livro) {
         return livroRepository.save(livro);
     }
