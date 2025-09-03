@@ -1,70 +1,31 @@
 package br.com.fiap.spring.mvc.controller;
 
-import br.com.fiap.spring.mvc.entity.Categoria;
 import br.com.fiap.spring.mvc.entity.Livro;
-import br.com.fiap.spring.mvc.service.LivroService;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
 @RequestMapping("/livros")
 public class LivroController {
-    @Autowired
-    LivroService livroService;
-
-    @GetMapping("/lista")
-    public String listarLivros(Model model) {
-        List<Livro> livros = livroService.readLivros();
+    @GetMapping("/livro")
+    public String listarLivros(Model model){
+        Livro livro1 = new Livro();
+        livro1.setId(1L);
+        livro1.setTítulo("Harry Potter");
+        Livro livro2 = new Livro();
+        livro2.setId(2L);
+        livro2.setTítulo("Percy Jackson");
+        Livro livro3 = new Livro();
+        livro1.setId(3L);
+        livro1.setTítulo("O diário de um banana");
+        List<Livro> livros = List.of(livro1, livro2, livro3);
         model.addAttribute("listaLivros", livros);
         return "livroLista";
     }
 
-    @GetMapping("/cadastro")
-    public String cadastroLivro(Model model) {
-        model.addAttribute("livro", new Livro());
-        model.addAttribute("categoriaLista", Arrays.asList(Categoria.values()));
-        return "livroCadastro";
-    }
-
-    @PostMapping("/cadastrar/")
-    public String cadastrarLivro(@Valid Livro livro, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            model.addAttribute("livro", livro);
-            model.addAttribute("categoriaLista", Arrays.asList(Categoria.values()));
-            return "livroCadastro";
-        }
-        if (livro.getId() == null) {
-            livroService.createLivro(Livro);
-        } else {
-            livroService.updateLivro(Livro);
-        }
-        return listarLivros(model);
-    }
 }
 
-@GetMapping("/cadastro/{id}")
-public String cadastroLivro(@PathVariable Long id, Model model) {
-    LivroService livroService;
-    Livro livro = livroService.readLivro(id);
-    if (livro == null) {
-        listarLivros(model);
-    }
-    model.addAttribute("livro", Livro);
-    model.addAttribute("categoriaLista", Arrays.asList(Categoria.values()));
-    return "livroCadastro";
-}
-
-    @GetMapping("/deletar/{id}")
-    public String deletarLivro(@PathVariable Long id, Model model) {
-    livro.Service.deletarLivro(id);
-}
